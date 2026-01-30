@@ -1594,3 +1594,297 @@ input:checked + .toggle-slider:before {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-light);
 }
+
+/* Confirmation & Alert Modals */
+.confirmation-content,
+.alert-content {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.confirmation-icon,
+.alert-icon {
+    font-size: 3rem;
+    color: var(--warning-color);
+    margin-bottom: 1rem;
+}
+
+.alert-icon {
+    color: var(--primary-color);
+}
+
+.confirmation-actions,
+.alert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Email Editor */
+.email-editor {
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.email-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--body-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.toolbar-btn {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.toolbar-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.email-body {
+    min-height: 200px;
+    padding: 1rem;
+    outline: none;
+    font-family: inherit;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-y: auto;
+}
+
+.email-body[contenteditable="true"]:empty:before {
+    content: attr(data-placeholder);
+    color: var(--text-light);
+}
+
+.attachments-list {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.attachment-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--body-bg);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+}
+
+.attachment-item i {
+    color: var(--primary-color);
+}
+
+.remove-attachment {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+}
+
+.remove-attachment:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Action Dropdown for Mobile */
+.action-dropdown {
+    position: relative;
+    display: none;
+}
+
+.action-menu-toggle {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.action-menu-toggle:hover {
+    background-color: var(--border-color);
+}
+
+.action-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    min-width: 150px;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    padding: 0.5rem 0;
+}
+
+.action-menu.show {
+    display: flex;
+}
+
+.action-menu-item {
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    transition: background-color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-menu-item:hover {
+    background-color: var(--body-bg);
+}
+
+.action-menu-item.accept {
+    color: var(--success-color);
+}
+
+.action-menu-item.reject {
+    color: var(--danger-color);
+}
+
+/* Mobile-specific table actions */
+@media (max-width: 768px) {
+    .action-buttons {
+        display: none;
+    }
+    
+    .action-dropdown {
+        display: block;
+    }
+    
+    /* Adjust table columns for mobile */
+    table td:nth-child(5), /* Adjust based on your table structure */
+    table th:nth-child(5) {
+        display: none;
+    }
+    
+    table td:nth-child(6), /* Actions column */
+    table th:nth-child(6) {
+        width: 50px;
+        text-align: center;
+    }
+}
+
+/* Desktop - show buttons, hide dropdown */
+@media (min-width: 769px) {
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .action-dropdown {
+        display: none;
+    }
+}
+
+/* Form state tracking */
+.form-dirty {
+    position: relative;
+}
+
+.form-dirty::after {
+    content: '*';
+    color: var(--danger-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* Image Preview */
+.avatar-preview {
+    position: relative;
+    overflow: hidden;
+}
+
+.avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.avatar-preview.has-image img {
+    display: block;
+}
+
+.avatar-preview.has-image .avatar-preview-image {
+    display: none;
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Enhanced form styling */
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    transition: all var(--transition-fast);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Custom select styling */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
