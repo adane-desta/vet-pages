@@ -1066,6 +1066,7 @@ input:checked + .toggle-slider:before {
     flex-direction: column;
     gap: 1rem;
     flex: 1;
+    overflow-y: auto;
 }
 
 .notification-item {
