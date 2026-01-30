@@ -421,6 +421,159 @@
         </div>
     </div>
 
+    <!-- Add after the existing modals -->
+
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="confirmModalTitle">Confirm Action</h3>
+            <button class="modal-close" onclick="closeModal('confirmModal')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="confirmation-content">
+                <div class="confirmation-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <p id="confirmModalMessage">Are you sure you want to perform this action?</p>
+            </div>
+            <div class="confirmation-actions">
+                <button class="btn-secondary" id="confirmModalCancel">Cancel</button>
+                <button class="btn-primary" id="confirmModalConfirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Modal -->
+<div id="alertModal" class="modal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="alertModalTitle">Alert</h3>
+            <button class="modal-close" onclick="closeModal('alertModal')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert-content">
+                <div class="alert-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <p id="alertModalMessage">Alert message here</p>
+            </div>
+            <div class="alert-actions">
+                <button class="btn-primary" id="alertModalOk">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Email Modal -->
+<div id="emailModal" class="modal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="emailModalTitle">Send Email</h3>
+            <button class="modal-close" onclick="confirmCloseEmailModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="emailTo">To</label>
+                    <input type="email" id="emailTo" name="to" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="emailSubject">Subject</label>
+                    <input type="text" id="emailSubject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="emailBody">Message</label>
+                    <div class="email-editor">
+                        <div class="email-toolbar">
+                            <button type="button" class="toolbar-btn" data-command="bold" title="Bold">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="italic" title="Italic">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="insertUnorderedList" title="Bullet List">
+                                <i class="fas fa-list-ul"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="insertOrderedList" title="Numbered List">
+                                <i class="fas fa-list-ol"></i>
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="createLink" title="Insert Link">
+                                <i class="fas fa-link"></i>
+                            </button>
+                        </div>
+                        <div id="emailBody" class="email-body" contenteditable="true" data-placeholder="Write your message here..."></div>
+                        <input type="hidden" name="body" id="emailBodyHidden">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emailAttachments">Attachments</label>
+                    <div class="file-upload">
+                        <input type="file" id="emailAttachments" name="attachments" multiple>
+                        <label for="emailAttachments" class="file-upload-label">
+                            <i class="fas fa-paperclip"></i>
+                            <span>Add attachments</span>
+                        </label>
+                        <div class="attachments-list" id="attachmentsList"></div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="confirmCloseEmailModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send Email
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Question Modal -->
+<div id="rejectQuestionModal" class="modal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title">Reject Question</h3>
+            <button class="modal-close" onclick="closeModal('rejectQuestionModal')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="rejectQuestionForm">
+                <div class="form-group">
+                    <label for="rejectReason">Reason for rejection</label>
+                    <select id="rejectReason" name="reason" required>
+                        <option value="">Select a reason</option>
+                        <option value="not_related">Not related to veterinary services</option>
+                        <option value="incomplete">Incomplete information</option>
+                        <option value="duplicate">Duplicate question</option>
+                        <option value="inappropriate">Inappropriate content</option>
+                        <option value="other">Other reason</option>
+                    </select>
+                </div>
+                <div class="form-group" id="customReasonGroup" style="display: none;">
+                    <label for="customReason">Please specify</label>
+                    <textarea id="customReason" name="customReason" rows="3" placeholder="Enter your reason..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rejectMessage">Message to farmer (optional)</label>
+                    <textarea id="rejectMessage" name="message" rows="4" placeholder="Optional message to the farmer..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('rejectQuestionModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Reject Question</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <script src="./vetPage.js"></script>
 </body>
 </html>
