@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinarian Dashboard - Animal Health Advisory System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../stylesheet_files/vetPage.css">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-header-content">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="logo">VetCare<span>Dashboard</span></h1>
+            <div class="user-profile">
+                <span>Dr. Thomas</span>
+                <div class="avatar">DT</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="avatar-large">DT</div>
+                    <div class="user-details">
+                        <h2>Dr. Thomas</h2>
+                        <p class="user-role">Veterinarian</p>
+                    </div>
+                </div>
+                <button class="close-menu" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" id="appointmentsNav">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Appointments</span>
+                    <span class="notification-badge">3</span>
+                </a>
+                <a href="#" class="nav-item" id="questionsNav">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Questions</span>
+                    <span class="notification-badge">5</span>
+                </a>
+                <a href="#" class="nav-item" id="newsNav">
+                    <i class="fas fa-newspaper"></i>
+                    <span>News & Events</span>
+                </a>
+                <a href="#" class="nav-item" id="resourcesNav">
+                    <i class="fas fa-book-medical"></i>
+                    <span>Resources</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="stats-card">
+                    <h4>Today's Stats</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <p class="stat-number">8</p>
+                                <p class="stat-label">Appointments</p>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <p class="stat-number">12</p>
+                                <p class="stat-label">Questions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="contentArea">
+            <div class="content-header">
+                <h1 class="page-title">Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" id="addAppointmentBtn">
+                        <i class="fas fa-plus"></i> Add Appointment
+                    </button>
+                    <div class="date-display">
+                        <i class="fas fa-calendar-day"></i>
+                        <span id="currentDate"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Default Dashboard Content -->
+            <div class="dashboard-overview">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h2>Welcome back, Dr. Thomas</h2>
+                        <p>You have <strong>8 appointments</strong> and <strong>5 unanswered questions</strong> today.</p>
+                        <button class="btn-outline">
+                            <i class="fas fa-chart-line"></i>
+                            View Weekly Report
+                        </button>
+                    </div>
+                    <div class="welcome-illustration">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat-card stat-primary">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <h3>24</h3>
+                            <p>Monthly Appointments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-success">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h3>18</h3>
+                            <p>Answered Questions</p>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            <h3>3</h3>
+                            <p>Pending Cases</p>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-info">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3>42</h3>
+                            <p>Active Farmers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Modal content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascript_files/vetPage.js"></script>
+</body>
+</html>
