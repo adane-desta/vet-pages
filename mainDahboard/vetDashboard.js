@@ -1907,7 +1907,7 @@ function initDashboard() {
     setupSidebarNavigation();
     
     // Set default active section
-    appointmentsNav.click();
+    // appointmentsNav.click();
     
     // Add scroll indicator check on load
     setTimeout(checkScrollIndicator, 500);
