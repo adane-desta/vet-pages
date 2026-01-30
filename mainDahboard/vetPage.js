@@ -46,6 +46,14 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024) {
+        sidebar.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
 // Update nav items active state
 function updateNavActiveState(activeNav) {
     document.querySelectorAll('.nav-item').forEach(nav => {
@@ -247,6 +255,7 @@ const getQuestions = async () => {
                 </div>
             </div>
             <div class="card">
+                <h2 class="section-title">Recent Questions</h2>
                 <div class="table-responsive">
                     <table>
                         <thead>
@@ -372,6 +381,7 @@ const getNews = async () => {
                 </div>
             </div>
             <div class="card">
+                <h2 class="section-title">Latest News & Events</h2>
                 <div class="news-grid">
                     ${newsEvents.map(newsEvent => `
                         <div class="news-card">
@@ -402,6 +412,9 @@ const getNews = async () => {
             </div>
         `;
         updateCurrentDate();
+        
+        // Add scroll indicator for mobile
+        addScrollIndicator('.news-grid');
         
     } catch (error) {
         console.error('Error fetching news:', error);
@@ -468,11 +481,12 @@ resourcesNav.addEventListener('click', async (e) => {
                 </div>
             </div>
             <div class="card">
+                <h2 class="section-title">Available Resources</h2>
                 <div class="resources-grid">
                     ${resources.map(resource => `
                         <div class="resource-card">
                             <div class="resource-icon">
-                                <i class="fas fa-${resource.type === 'video' ? 'video' : resource.type === 'pdf' ? 'file-pdf' : 'book'}"></i>
+                                <i class="fas fa-${getResourceIcon(resource.type)}"></i>
                             </div>
                             <div class="resource-content">
                                 <h3 class="resource-title">${resource.title}</h3>
@@ -499,6 +513,9 @@ resourcesNav.addEventListener('click', async (e) => {
         updateCurrentDate();
         activeSection = 'resources';
         
+        // Add scroll indicator for mobile
+        addScrollIndicator('.resources-grid');
+        
     } catch (error) {
         console.error('Error fetching resources:', error);
         contentArea.innerHTML = `
@@ -518,6 +535,19 @@ resourcesNav.addEventListener('click', async (e) => {
         `;
     }
 });
+
+// Helper function to get resource icon
+function getResourceIcon(type) {
+    const icons = {
+        'video': 'video',
+        'pdf': 'file-pdf',
+        'document': 'file-alt',
+        'guide': 'book',
+        'manual': 'book-open',
+        'article': 'newspaper'
+    };
+    return icons[type.toLowerCase()] || 'file';
+}
 
 // Handle rejecting an appointment
 async function rejectAppointment(appointment_id) {
@@ -628,6 +658,22 @@ notificationStyles.textContent = `
 `;
 document.head.appendChild(notificationStyles);
 
+// Add scroll indicator function for mobile
+function addScrollIndicator(selector) {
+    if (window.innerWidth > 768) return;
+    
+    const element = document.querySelector(selector);
+    if (!element) return;
+    
+    // Check if content overflows
+    setTimeout(() => {
+        const isOverflowing = element.scrollWidth > element.clientWidth;
+        if (isOverflowing) {
+            element.style.position = 'relative';
+        }
+    }, 100);
+}
+
 // Modal functions
 function openModal(title, content) {
     const modalTitle = modal.querySelector('.modal-title');
@@ -636,10 +682,12 @@ function openModal(title, content) {
     modalTitle.textContent = title;
     modalBody.innerHTML = content;
     modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     modal.style.display = 'none';
+    document.body.style.overflow = '';
 }
 
 // Close modal when clicking outside
@@ -656,184 +704,21 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Add loading spinner and error state CSS
-const additionalStyles = document.createElement('style');
-additionalStyles.textContent = `
-    .loading-spinner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 3rem;
-        color: var(--text-secondary);
-    }
+// Add table scroll detection for mobile
+function setupTableScrollIndicators() {
+    const tables = document.querySelectorAll('.table-responsive');
     
-    .loading-spinner i {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-    
-    .error-state {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 3rem;
-        text-align: center;
-    }
-    
-    .error-state i {
-        font-size: 3rem;
-        color: var(--danger-color);
-        margin-bottom: 1rem;
-    }
-    
-    .error-state h3 {
-        margin-bottom: 0.5rem;
-        color: var(--text-primary);
-    }
-    
-    .error-state p {
-        color: var(--text-secondary);
-        margin-bottom: 1.5rem;
-    }
-    
-    .empty-state {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 3rem;
-        text-align: center;
-        color: var(--text-secondary);
-    }
-    
-    .empty-state i {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        opacity: 0.5;
-    }
-    
-    .news-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1.5rem;
-    }
-    
-    .news-card {
-        background-color: var(--body-bg);
-        border-radius: var(--radius-lg);
-        padding: 1.5rem;
-        border: 1px solid var(--border-color);
-    }
-    
-    .news-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-    
-    .news-type {
-        padding: 0.25rem 0.75rem;
-        border-radius: var(--radius-md);
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-    
-    .news-type.event {
-        background-color: rgba(139, 92, 246, 0.1);
-        color: var(--accent-color);
-    }
-    
-    .news-type.news {
-        background-color: rgba(37, 99, 235, 0.1);
-        color: var(--primary-color);
-    }
-    
-    .news-date {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-    }
-    
-    .news-title {
-        font-size: 1.125rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        color: var(--text-primary);
-    }
-    
-    .news-description {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-        margin-bottom: 1rem;
-        line-height: 1.5;
-    }
-    
-    .resources-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 1.5rem;
-    }
-    
-    .resource-card {
-        display: flex;
-        gap: 1rem;
-        padding: 1.5rem;
-        background-color: var(--body-bg);
-        border-radius: var(--radius-lg);
-        border: 1px solid var(--border-color);
-        transition: transform var(--transition-base);
-    }
-    
-    .resource-card:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-    }
-    
-    .resource-icon {
-        font-size: 1.5rem;
-        color: var(--primary-color);
-    }
-    
-    .resource-title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: var(--text-primary);
-    }
-    
-    .resource-description {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-        margin-bottom: 1rem;
-        line-height: 1.4;
-    }
-    
-    .resource-meta {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .resource-type {
-        padding: 0.25rem 0.75rem;
-        background-color: rgba(37, 99, 235, 0.1);
-        color: var(--primary-color);
-        border-radius: var(--radius-md);
-        font-size: 0.75rem;
-        font-weight: 600;
-    }
-    
-    @media (max-width: 640px) {
-        .news-grid,
-        .resources-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-`;
-document.head.appendChild(additionalStyles);
+    tables.forEach(table => {
+        table.addEventListener('scroll', function() {
+            const isAtEnd = this.scrollLeft + this.clientWidth >= this.scrollWidth - 10;
+            if (isAtEnd) {
+                this.style.setProperty('--scroll-indicator-opacity', '0');
+            } else {
+                this.style.setProperty('--scroll-indicator-opacity', '1');
+            }
+        });
+    });
+}
 
 // Initialize the dashboard
 updateCurrentDate();
@@ -841,4 +726,20 @@ updateCurrentDate();
 // Set default active section
 window.addEventListener('DOMContentLoaded', () => {
     appointmentsNav.click();
+    
+    // Setup scroll indicators
+    setTimeout(setupTableScrollIndicators, 500);
 });
+
+// Add custom property for scroll indicator
+const scrollIndicatorStyle = document.createElement('style');
+scrollIndicatorStyle.textContent = `
+    .table-responsive {
+        --scroll-indicator-opacity: 1;
+    }
+    
+    .table-responsive::after {
+        opacity: var(--scroll-indicator-opacity);
+    }
+`;
+document.head.appendChild(scrollIndicatorStyle);
