@@ -8,6 +8,7 @@ const accountNav = document.getElementById('accountNav');
 const contentArea = document.getElementById('contentArea');
 const headerActions = document.getElementById('headerActions');
 const scrollIndicator = document.getElementById('scrollIndicator');
+const dashboardOverview = document.getElementById('dashboardOverview');
 
 // Notification badges
 const appointmentsBadge = document.getElementById('appointmentsBadge');
@@ -777,6 +778,11 @@ appointmentsNav.addEventListener('click', (e) => {
         document.body.style.overflow = '';
     }
 });
+
+dashboardOverview.addEventListener('click' , (e) => {
+    e.preventDefault()
+    updateNavActiveState(appointmentsNav)
+})
 
 const getAppointments = async () => {
     try {
