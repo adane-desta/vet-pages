@@ -781,7 +781,13 @@ appointmentsNav.addEventListener('click', (e) => {
 
 dashboardOverview.addEventListener('click' , (e) => {
     e.preventDefault()
-    updateNavActiveState(appointmentsNav)
+    updateNavActiveState(dashboardOverview)
+    activeSection = 'dashboardOverview';
+
+    if (window.innerWidth <= 1024) {
+        sidebar.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 })
 
 const getAppointments = async () => {
@@ -1913,7 +1919,7 @@ function initDashboard() {
     setupSidebarNavigation();
     
     // Set default active section
-    // appointmentsNav.click();
+     dashboardOverview.click();
     
     // Add scroll indicator check on load
     setTimeout(checkScrollIndicator, 500);
