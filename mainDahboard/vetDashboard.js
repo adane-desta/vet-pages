@@ -783,12 +783,61 @@ dashboardOverview.addEventListener('click' , (e) => {
     e.preventDefault()
     updateNavActiveState(dashboardOverview)
     activeSection = 'dashboardOverview';
+    showdashboardOverview()
 
     if (window.innerWidth <= 1024) {
         sidebar.classList.remove('active');
         document.body.style.overflow = '';
     }
 })
+
+const showdashboardOverview = () => {
+    contentArea.innerHTML = `
+
+    <div class="dashboard-overview">
+        <div class="welcome-card">
+            <div class="welcome-content">
+                <h2>Welcome back, Dr. Thomas</h2>
+                <p>You have <strong id="pendingAppointmentsCount">8</strong> appointments and <strong id="pendingQuestionsCount">5</strong> unanswered questions today.</p>
+            </div>
+            <div class="welcome-illustration">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+        </div>
+
+        <div class="quick-stats">
+            <div class="stat-card stat-primary">
+                <i class="fas fa-calendar-alt"></i>
+                <div>
+                    <h3>24</h3>
+                    <p>Monthly Appointments</p>
+                </div>
+            </div>
+            <div class="stat-card stat-success">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <h3>18</h3>
+                    <p>Answered Questions</p>
+                </div>
+            </div>
+            <div class="stat-card stat-warning">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                    <h3>3</h3>
+                    <p>Pending Cases</p>
+                </div>
+            </div>
+            <div class="stat-card stat-info">
+                <i class="fas fa-users"></i>
+                <div>
+                    <h3>42</h3>
+                    <p>Active Farmers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
+}
 
 const getAppointments = async () => {
     try {
